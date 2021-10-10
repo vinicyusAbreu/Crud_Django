@@ -1,0 +1,34 @@
+{% extends 'base.html' %} 
+
+ {% block 'conteudo' %}
+    <ul id="todo-list">
+    {% for crud in cruds %}
+            <li class="todo-item" data-id="{{ crud.id }}">
+                <a class="button-check" href="mudarstatus/{{crud.id}}">
+
+                    {% if crud.done == 'doing' %}
+                        <i class="fas fa-check displayNone"></i>
+                      
+                    {% else %}
+                        <i class="fas fa-check"></i>
+                    {% endif %}
+
+                </a>
+                <p class="task-name">{{crud.nome}}</p>
+                <i class="fas fa-edit"></i>
+                <a href="deletar/{{crud.id}}" class="fas fa-trash-alt"></a>
+
+                 <div  class="editContainer">
+                    <form action="editarCrud/{{crud.id}}"  method="POST">
+                     {% csrf_token %}
+                        <input class="editInput" type="text" name="editCrud">
+                        <input class="editButton" type="submit" value="Edit">
+                    </form>
+                    <button class="cancelButton">Cancel</button>
+            </div>
+
+            </li>
+    
+    {% endfor %}
+    </ul>
+ {% endblock 'conteudo' %}
